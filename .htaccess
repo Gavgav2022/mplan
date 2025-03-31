@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Примусове перенаправлення HTTP → HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Дозволяє відкривати файли без .html у URL
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
