@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function parallaxEffect() {
   const scrollPosition = window.scrollY;
   const parallaxElement = document.querySelector('.main__body');
-  const parallaxSpeed = 0.5;
+  const parallaxSpeed = 0.05;
   parallaxElement.style.backgroundPosition = `center ${-(scrollPosition * parallaxSpeed)}px`;
 }
 window.addEventListener('scroll', parallaxEffect);
