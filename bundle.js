@@ -7,10 +7,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   function updateStyles() {
     const elements = document.querySelectorAll(".hero__card-item:not(.hero__card-item-hidden)");
-    const styles = ["style-1", "style-2", "style-3", "style-4"];
+
+    // Определяем порядок отступов для каждого цикла
+    const stylesFirstCycle = ["ma-custom-3", "ma-custom-4", "ma-custom-3", "ma-custom-2"];
+    const stylesSecondCycle = ["ma-custom-1", "ma-custom-2", "ma-custom-3", "ma-custom-4"];
     elements.forEach((el, index) => {
-      el.classList.remove(...styles);
-      el.classList.add(styles[index % styles.length]);
+      // Находим, какой цикл мы сейчас находимся (нечетный или четный)
+      const cycleIndex = Math.floor(index / 4); // Переход к следующему циклу каждые 4 элемента
+      const cycleStyles = cycleIndex % 2 === 0 ? stylesFirstCycle : stylesSecondCycle;
+
+      // Убираем старые классы и добавляем новые отступы в зависимости от цикла
+      el.classList.remove(...stylesFirstCycle, ...stylesSecondCycle);
+      el.classList.add(cycleStyles[index % 4]);
     });
   }
   let btnFlag = false;
@@ -123,6 +131,9 @@ function parallaxEffect() {
   const scrollPosition = window.scrollY;
   const parallaxElement = document.querySelector('.main__body');
   const parallaxSpeed = 0.05;
+  if (!parallaxElement) {
+    return;
+  }
   parallaxElement.style.backgroundPosition = `center ${-(scrollPosition * parallaxSpeed)}px`;
 }
 window.addEventListener('scroll', parallaxEffect);
